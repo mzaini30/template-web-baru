@@ -1,1 +1,11 @@
-RewriteEngine On# Jika file atau folder tidak adaRewriteCond %{REQUEST_FILENAME} !-fRewriteCond %{REQUEST_FILENAME} !-d# Arahkan ke 200.htmlRewriteRule ^.*$ /200.html [L]# Pastikan status code selalu 200ErrorDocument 404 /200.html
+RewriteEngine On
+
+# Jika file atau folder tidak ada
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Arahkan ke 404.html
+RewriteRule ^.*$ /404.html [L]
+
+# Pastikan status code selalu 200
+ErrorDocument 404 /404.html
