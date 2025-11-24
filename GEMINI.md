@@ -151,3 +151,9 @@ curl "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:g
 - Usahakan komponen dipisah-pisah filenya supaya bisa reusable (backend PHP maupun di file-file Svelte)
 - Pakai absolute path menggunakan __DIR__ (pada backend PHP yang di folder static)
 - Untuk curl harus bisa digunakan walaupun tanpa https (untuk backend)
+
+Jangan hapus ini dari src/app.css:
+
+@import 'tailwindcss';
+@plugin '@tailwindcss/forms';
+@plugin '@tailwindcss/typography';
