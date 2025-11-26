@@ -157,3 +157,5 @@ Jangan hapus ini dari src/app.css:
 @import 'tailwindcss';
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
+
+- Nggak perlu menjalankan npm run dev karena aku akan menjalankannya sendiri secara manual
