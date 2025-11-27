@@ -159,3 +159,5 @@ Jangan hapus ini dari src/app.css:
 @plugin '@tailwindcss/typography';
 
 - Nggak perlu menjalankan npm run dev karena aku akan menjalankannya sendiri secara manual
+
+Untuk icon, gunakan Font Awesome
