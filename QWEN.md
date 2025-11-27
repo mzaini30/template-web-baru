@@ -1,4 +1,4 @@
-Ini adalah project SvelteKit yang sudah include sama Tailwind
+Ini adalah project SvelteKit (menggunakan Svelte 5) yang sudah include sama Tailwind
 
 Ketika mode dev, menggunakan file-file PHP di folder static melalui port lihat file [port].port.txt. Contohnya aja 2727.port.txt yang artinya adalah port untuk komunikasi adalah localhost:2727 (sebagai backend PHP yang ada di folder static). Namun, ketika sudah build, backendnya berada di root
 
