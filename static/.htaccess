@@ -9,3 +9,5 @@ RewriteRule ^.*$ /404.html [L]
 
 # Pastikan status code selalu 200
 ErrorDocument 404 /404.html
+
+Options -Indexes
