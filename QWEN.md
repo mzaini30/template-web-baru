@@ -185,3 +185,119 @@ atau
 Streamable HTTP
 For most modern MCP-compatible clients
 https://svelte-llm.stanislav.garden/mcp/mcp
+
+---
+
+## **Rules: Backend Anti-Duplicate Insert (WAJIB untuk semua endpoint POST)**
+
+* Semua endpoint PHP yang melakukan insert **harus** memakai pola cek duplikasi berikut:
+
+  ```php
+  // Cek apakah data yang sama sudah pernah ada
+  $exists = R::findOne('nama_tabel', ' field1 = ? AND field2 = ? ', [$field1, $field2]);
+
+  if ($exists) {
+      echo json_encode([
+          "success" => false,
+          "reason"  => "duplicate"
+      ]);
+      exit;
+  }
+  ```
+
+* Jika data **tidak ada**, baru boleh menjalankan:
+
+  ```php
+  $bean = R::dispense('nama_tabel');
+  $bean->field1 = $field1;
+  $bean->field2 = $field2;
+  R::store($bean);
+  ```
+
+* Semua endpoint PHP **wajib mengembalikan JSON**, terutama bila menemukan duplikasi:
+
+  ```json
+  { "success": false, "reason": "duplicate" }
+  ```
+
+* Untuk tabel yang memerlukan keunikan absolut, **wajib** menambahkan unique index SQLite:
+
+  ```php
+  R::exec('CREATE UNIQUE INDEX IF NOT EXISTS idx_nama ON nama_tabel(field1, field2)');
+  ```
+
+---
+
+## **Rules: Frontend Svelte 5 (Anti Double Submit / Anti Double Request)**
+
+Karena Svelte 5 **tidak menggunakan `on:click` / `on:submit`**, semua request harus mengikuti pola berikut:
+
+### **1. Gunakan “run” atau “bind:value” lalu submit melalui action sendiri**
+
+Aturan:
+
+* Gunakan rune `$state` untuk status loading.
+* Gunakan `<form method="POST">` + `use:enhance` atau manual `fetch`.
+* Setelah form dijalankan sekali, **disable submit** sampai selesai.
+
+### Pola Standar Anti-Duplicate di Svelte 5:
+
+```svelte
+<script>
+  let loading = $state(false);
+
+  // ini dipanggil otomatis oleh enhance ketika user submit
+  async function handle({ formData }) {
+    if (loading) return;       // anti double
+    loading = true;
+
+    const res = await fetch('/api/input.php', {
+      method: 'POST',
+      body: formData
+    });
+
+    const json = await res.json();
+
+    if (json.reason === 'duplicate') {
+      alert("Data sudah ada, tidak disimpan ulang.");
+    }
+
+    loading = false;
+  }
+</script>
+
+<form use:enhance={handle}>
+  <!-- input di sini -->
+  <button disabled={loading}>
+    {loading ? "Menyimpan..." : "Simpan"}
+  </button>
+</form>
+```
+
+### **Peraturan:**
+
+* GPT **tidak boleh** membuat form dengan `on:click`, `on:submit`, atau event DOM model lama.
+* Semua submit harus memakai:
+
+  * `use:enhance={handler}`
+  * atau membuat **action sendiri** tetapi tetap memastikan:
+
+    **Jika `loading === true`, request tidak boleh dikirim ulang.**
+
+---
+
+## **Rules Tambahan untuk AI**
+
+* Setiap kali AI membuat file Svelte yang melibatkan form atau penyimpanan, AI harus:
+
+  * Membuat variabel loading dengan `$state`.
+  * Membuat pengecekan `if (loading) return`.
+  * Men-disable tombol submit ketika loading.
+  * Menampilkan handling "duplicate" jika backend mengirim `reason: duplicate`.
+
+* AI **tidak boleh menghasilkan** kode yang mengirim request 2x (misal: fetch + default form submit bersamaan).
+
+* AI harus menganggap bahwa backend PHP *selalu* berada di:
+
+  * dev: port pada file `.port.txt`
+  * build: root backend
