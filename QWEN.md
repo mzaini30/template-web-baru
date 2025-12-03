@@ -1,12 +1,34 @@
-Ini adalah project SvelteKit (menggunakan Svelte 5) yang sudah include sama Tailwind
+=== DEFINISI PROJECT ===
 
-Ketika mode dev, menggunakan file-file PHP di folder static melalui port lihat file [port].port.txt. Contohnya aja 2727.port.txt yang artinya adalah port untuk komunikasi adalah localhost:2727 (sebagai backend PHP yang ada di folder static). Namun, ketika sudah build, backendnya berada di root
+- Ini adalah project SvelteKit (menggunakan Svelte 5) yang sudah include sama Tailwind
+- Usahakan komponen dipisah-pisah filenya supaya bisa reusable (backend PHP maupun di file-file Svelte)
 
-Backend PHP di folder static itu adalah PHP native
+=== BACKEND ===
 
-Untuk instalasi paket Node JS, menggunakan pnpm, bukan npm
+- Ketika mode dev, menggunakan file-file PHP di folder static melalui port lihat file [port].port.txt. Contohnya aja 2727.port.txt yang artinya adalah port untuk komunikasi adalah localhost:2727 (sebagai backend PHP yang ada di folder static). Namun, ketika sudah build, backendnya berada di root
+- Backend PHP di folder static itu adalah PHP native
+- Database menggunakan RedBeanPHP yang akan mengolah file static/uzumaki-naruto.db yang merupakan SQLite. Library RedBeanPHP bisa didapatkan di static/library/rb-sqlite.php
+- Pakai absolute path menggunakan __DIR__ (pada backend PHP yang di folder static)
+- Untuk curl harus bisa digunakan walaupun tanpa https (untuk backend)
 
-Utamakan responsive mode
+=== FRONTEND ===
+
+- Untuk instalasi paket Node JS, menggunakan pnpm, bukan npm
+- Nggak perlu menjalankan npm run dev (di Qwen) karena aku akan menjalankannya sendiri secara manual
+
+=== STYLING ===
+
+- Utamakan responsive mode
+- Suasana desain elegan seperti Apple
+- Jangan hapus ini dari src/app.css:
+
+@import 'tailwindcss';
+@plugin '@tailwindcss/forms';
+@plugin '@tailwindcss/typography';
+
+- Untuk icon, gunakan Font Awesome
+
+=== WHATSAPP ===
 
 - Untuk kirim pesan menggunakan WhatsApp, tools yang digunakan adalah Sidobe
 
@@ -130,6 +152,8 @@ Contoh kalau nomor WA terdaftar:
   }
 }
 
+=== AI ===
+
 - Untuk AI, menggunakan Gemini dengan key AIzaSyB0ZdbSRI9TiHr6vJeYpdSvee6C11rTrTI dengan contoh curl:
 
 curl "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent" \
@@ -148,49 +172,7 @@ curl "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:g
     ]
   }'
 
-- Suasana desain elegan seperti Apple
-- Database menggunakan RedBeanPHP yang akan mengolah file static/uzumaki-naruto.db yang merupakan SQLite. Library RedBeanPHP bisa didapatkan di static/library/rb-sqlite.php
-- Usahakan komponen dipisah-pisah filenya supaya bisa reusable (backend PHP maupun di file-file Svelte)
-- Pakai absolute path menggunakan __DIR__ (pada backend PHP yang di folder static)
-- Untuk curl harus bisa digunakan walaupun tanpa https (untuk backend)
-
-Jangan hapus ini dari src/app.css:
-
-@import 'tailwindcss';
-@plugin '@tailwindcss/forms';
-@plugin '@tailwindcss/typography';
-
-- Nggak perlu menjalankan npm run dev karena aku akan menjalankannya sendiri secara manual
-
-Untuk icon, gunakan Font Awesome
-
-When connected to the svelte-llm MCP server, you have access to comprehensive Svelte 5 and SvelteKit documentation. Here's how to use the available tools effectively:
-
-## Available MCP Tools:
-
-### 1. list_sections
-Use this FIRST to discover all available documentation sections. Returns a structured list with titles and paths.
-When asked about Svelte or SvelteKit topics, ALWAYS use this tool at the start of the chat to find relevant sections.
-
-### 2. get_documentation
-Retrieves full documentation content for specific sections. Accepts single or multiple sections.
-After calling the list_sections tool, you MUST analyze the returned documentation sections and then use the get_documentation tool to fetch ALL documentation sections that are relevant for the users task.
-
-Svelte MCP:
-
-Server-Sent Events (SSE)
-For clients supporting Server-Sent Events
-https://svelte-llm.stanislav.garden/mcp/sse
-
-atau
-
-Streamable HTTP
-For most modern MCP-compatible clients
-https://svelte-llm.stanislav.garden/mcp/mcp
-
----
-
-## **Rules: Backend Anti-Duplicate Insert (WAJIB untuk semua endpoint POST)**
+=== Backend Anti-Duplicate Insert (WAJIB untuk semua endpoint POST) ===
 
 * Semua endpoint PHP yang melakukan insert **harus** memakai pola cek duplikasi berikut:
 
@@ -228,9 +210,7 @@ https://svelte-llm.stanislav.garden/mcp/mcp
   R::exec('CREATE UNIQUE INDEX IF NOT EXISTS idx_nama ON nama_tabel(field1, field2)');
   ```
 
----
-
-## **Rules: Frontend Svelte 5 (Anti Double Submit / Anti Double Request)**
+=== Frontend Svelte 5 (Anti Double Submit / Anti Double Request) ===
 
 Karena Svelte 5 **tidak menggunakan `on:click` / `on:submit`**, semua request harus mengikuti pola berikut:
 
@@ -286,9 +266,7 @@ Aturan:
 
     **Jika `loading === true`, request tidak boleh dikirim ulang.**
 
----
-
-## **Rules Tambahan untuk AI**
+=== Rules Tambahan untuk AI ===
 
 * Setiap kali AI membuat file Svelte yang melibatkan form atau penyimpanan, AI harus:
 
@@ -303,3 +281,9 @@ Aturan:
 
   * dev: port pada file `.port.txt`
   * build: root backend
+
+=== Upload Gambar ===
+
+Untuk halaman-halaman tertentu yang ada fitur upload gambar, berarti pas pilih gambar itu, dia otomatis terupload ke folder temporary image dan di frontendnya itu otomatis tampilkan preview gambarnya. Terus, di form tersebut ketika submit, maka gambarnya dipindahkan ke folder image. 
+
+Ketika mengedit atau menghapus record, maka secara otomatis juga berpengaruh pada gambar. Misalnya aja jika mengedit form dengan cara mengganti gambar, berarti kan gambar sebelumnya dihapus dan diganti dengan yang baru. Lalu, jika menghapus record, maka gambar juga dihapus
