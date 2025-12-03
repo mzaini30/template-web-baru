@@ -4,6 +4,8 @@ Ketika mode dev, menggunakan file-file PHP di folder static melalui port lihat f
 
 Backend PHP di folder static itu adalah PHP native
 
+Untuk instalasi paket Node JS, menggunakan pnpm, bukan npm
+
 Utamakan responsive mode
 
 - Untuk kirim pesan menggunakan WhatsApp, tools yang digunakan adalah Sidobe
