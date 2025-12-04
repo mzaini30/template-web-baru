@@ -30,6 +30,7 @@ export const getPhpBackendBaseUrl = () => {
 
 - Untuk instalasi paket Node JS, menggunakan pnpm, bukan npm
 - Nggak perlu menjalankan npm run dev (di Qwen) karena aku akan menjalankannya sendiri secara manual
+- Selalu kasih judul di semua halaman web
 
 === STYLING ===
 
