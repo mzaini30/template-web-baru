@@ -32,7 +32,7 @@ export const getPhpBackendBaseUrl = () => {
 - Nggak perlu menjalankan npm run dev (di Qwen) karena aku akan menjalankannya sendiri secara manual
 - Selalu kasih judul di semua halaman web
 - Pada Svelte, karena menggunakan Svelte 5, jadi gunakan runes seperti $state dan kalau action, jangan on:submit tapi onsubmit. Terus, kalau konten nggak pakai <slot/> melainkan {@render children()}
-- Untuk rich editor WYSIWYG, gunakan Edra yang cara installnya adalah: pnpm dlx edra@next init headless
+- Untuk rich editor WYSIWYG, gunakan Edra yang cara installnya adalah: pnpm dlx edra@next init headless, nanti kan akan terinstall Edra di src/lib/components/edra/. Nah, manfaatkan itu
 
 === STYLING ===
 
