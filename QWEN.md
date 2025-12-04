@@ -6,6 +6,21 @@
 === BACKEND ===
 
 - Ketika mode dev, menggunakan file-file PHP di folder static melalui port lihat file [port].port.txt. Contohnya aja 2727.port.txt yang artinya adalah port untuk komunikasi adalah localhost:2727 (sebagai backend PHP yang ada di folder static). Namun, ketika sudah build, backendnya berada di root
+
+Caranya adalah dengan membuat src/lib/utils.js yang isinya contohnya seperti ini:
+
+import { dev } from '$app/environment';
+
+const PHP_PORT = 4848; // Based on 4848.port.txt
+
+export const getPhpBackendBaseUrl = () => {
+    if (dev) {
+        return `http://localhost:${PHP_PORT}`;
+    }
+    // In production, the PHP backend is at the root of the SvelteKit app
+    return ''; // Relative path to root (empty string means relative to current domain/root)
+};
+
 - Backend PHP di folder static itu adalah PHP native
 - Database menggunakan RedBeanPHP yang akan mengolah file static/uzumaki-naruto.db yang merupakan SQLite. Library RedBeanPHP bisa didapatkan di static/library/rb-sqlite.php
 - Pakai absolute path menggunakan __DIR__ (pada backend PHP yang di folder static)
