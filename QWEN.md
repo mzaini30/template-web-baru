@@ -33,6 +33,7 @@ export const getPhpBackendBaseUrl = () => {
 - Selalu kasih judul di semua halaman web
 - Pada Svelte, karena menggunakan Svelte 5, jadi gunakan runes seperti $state dan kalau action, jangan on:submit tapi onsubmit. Terus, kalau konten nggak pakai <slot/> melainkan {@render children()}
 - UNTUK FORM, JANGAN MENGGUNAKAN use:enhance KARENA SERVERKU INI NGGAK PAKAI NODE JS MELAINKAN PHP
+- NGGAK USAH PAKAI +page.server.js KARENA NANTI DIBUILDNYA DENGAN ADAPTER STATIC DAN DIJALANKAN PADA SERVER PHP, BUKAN NODE JS
 
 === STYLING ===
 
