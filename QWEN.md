@@ -32,6 +32,7 @@ export const getPhpBackendBaseUrl = () => {
 - Nggak perlu menjalankan npm run dev (di Qwen) karena aku akan menjalankannya sendiri secara manual
 - Selalu kasih judul di semua halaman web
 - Pada Svelte, karena menggunakan Svelte 5, jadi gunakan runes seperti $state dan kalau action, jangan on:submit tapi onsubmit. Terus, kalau konten nggak pakai <slot/> melainkan {@render children()}
+- JANGAN MENGGUNAKAN +page.server.js KARENA NANTI AKAN DIBUILD DALAM BENTUK HTML MENGGUNAKAN ADAPTER STATIC DAN HOSTINGNYA JUGA BUKAN NODE JS MELAINKAN PHP
 
 === STYLING ===
 
