@@ -28,6 +28,7 @@ export const getPhpBackendBaseUrl = () => {
 
 === FRONTEND ===
 
+- UTAMAKAN MENGGUNAKAN SHADCN YANG KOMPONENNYA SUDAH AKU INSTALL  SEMUA. PELAJARI CARA MENGGUNAKANNYA DI ai/shadcn.txt
 - Untuk instalasi paket Node JS, menggunakan pnpm, bukan npm
 - Nggak perlu menjalankan npm run dev (di Qwen) karena aku akan menjalankannya sendiri secara manual
 - Selalu kasih judul di semua halaman web
