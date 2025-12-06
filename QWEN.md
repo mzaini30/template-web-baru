@@ -5,6 +5,7 @@
 
 === BACKEND ===
 
+- Pastikan data yang dikirim oleh backend ke database itu tidak terdobel
 - Ketika mode dev, menggunakan file-file PHP di folder static melalui port lihat file [port].port.txt. Contohnya aja 2727.port.txt yang artinya adalah port untuk komunikasi adalah localhost:2727 (sebagai backend PHP yang ada di folder static). Namun, ketika sudah build, backendnya berada di root
 
 Caranya adalah dengan membuat src/lib/utils.js yang isinya contohnya seperti ini:
@@ -29,6 +30,7 @@ export const getPhpBackendBaseUrl = () => {
 === FRONTEND ===
 
 - UTAMAKAN MENGGUNAKAN SHADCN YANG KOMPONENNYA SUDAH AKU INSTALL  SEMUA. PELAJARI CARA MENGGUNAKANNYA DI ai/shadcn.txt
+- Ketika selesai submit form, tombol submit didisable supaya tidak terdobel data yang dikirim. Setelah data diterima oleh backend, baru enablekan kembali tombol submitnya
 - Untuk instalasi paket Node JS, menggunakan pnpm, bukan npm
 - Nggak perlu menjalankan npm run dev (di Qwen) karena aku akan menjalankannya sendiri secara manual
 - Selalu kasih judul di semua halaman web
